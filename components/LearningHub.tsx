@@ -1,8 +1,8 @@
 "use client";
 
-import { useId, useState, type KeyboardEvent } from "react";
+import { useId, useMemo, useState, type KeyboardEvent } from "react";
 import { FlashcardStack } from "@/components/FlashcardStack";
-import type { ClassContent } from "@/lib/content";
+import type { ClassContent, LearningResource } from "@/lib/content";
 
 type Props = {
   content: ClassContent;
@@ -10,25 +10,61 @@ type Props = {
 
 const TAB_KEYS = ["ArrowRight", "ArrowLeft", "Home", "End"] as const;
 
+function buildClassVideoQuery(grade: string, video: LearningResource) {
+  return `Class ${grade} ${video.subject} ${video.chapter} ${video.title}`;
+}
+
 export function LearningHub({ content }: Props) {
   const id = useId();
   const [activeTab, setActiveTab] = useState(0);
+  const [activeVideoIndex, setActiveVideoIndex] = useState(0);
+
+  const selectedVideo = content.videos[activeVideoIndex] ?? content.videos[0];
+  const selectedVideoEmbedUrl = useMemo(() => {
+    if (!selectedVideo) {
+      return "";
+    }
+
+    const query = buildClassVideoQuery(content.grade, selectedVideo);
+    return `https://www.youtube.com/embed?listType=search&list=${encodeURIComponent(query)}`;
+  }, [content.grade, selectedVideo]);
 
   const tabs = [
     {
       label: "Video Lessons",
       panel: (
-        <ul>
-          {content.videos.map((video) => (
-            <li key={video.title}>
-              <div>
-                <strong>{video.title}</strong>
-                <span>{video.topic}</span>
-              </div>
-              <em>{video.duration}</em>
-            </li>
-          ))}
-        </ul>
+        <>
+          <p className="tab-intro">Pick a lesson to open a related YouTube video for this class.</p>
+          <ul>
+            {content.videos.map((video, index) => (
+              <li key={video.id}>
+                <div>
+                  <strong>{video.title}</strong>
+                  <span>
+                    {video.subject} • {video.chapter}
+                  </span>
+                </div>
+                <button type="button" onClick={() => setActiveVideoIndex(index)}>
+                  Watch video
+                </button>
+              </li>
+            ))}
+          </ul>
+
+          {selectedVideo ? (
+            <div className="video-player-wrap">
+              <h3>{selectedVideo.title}</h3>
+              <iframe
+                title={`${selectedVideo.title} on YouTube`}
+                src={selectedVideoEmbedUrl}
+                width="100%"
+                height="360"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          ) : null}
+        </>
       ),
     },
     {
@@ -36,10 +72,12 @@ export function LearningHub({ content }: Props) {
       panel: (
         <ul>
           {content.notes.map((note) => (
-            <li key={note.title}>
+            <li key={note.id}>
               <div>
                 <strong>{note.title}</strong>
-                <span>{note.topic}</span>
+                <span>
+                  {note.subject} • {note.chapter}
+                </span>
               </div>
               <em>PDF</em>
             </li>

@@ -320,6 +320,18 @@ h2 {
   border-color: rgba(126, 208, 255, 0.7);
 }
 
+.video-player-wrap {
+  margin-top: 0.9rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.video-player-wrap iframe {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: #000;
+}
+
 .tab-panel {
   margin-top: 0.2rem;
 }
@@ -366,6 +378,7 @@ h2 {
   .featured-class {
     grid-column: 1 / -1;
   }
+}
 
 @media (min-width: 700px) {
   .app-shell {
