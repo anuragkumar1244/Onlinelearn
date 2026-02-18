@@ -25,6 +25,32 @@ body {
     linear-gradient(155deg, var(--bg-start), var(--bg-end));
 }
 
+
+
+:where(a, button, input, select, textarea, [role="button"], [role="tab"], .class-card, .flashcard):focus-visible {
+  outline: 3px solid var(--accent-2);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 2px rgba(10, 16, 35, 0.85);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
 .app-shell {
   width: min(1120px, 92vw);
   margin: 0 auto;
@@ -210,6 +236,62 @@ p {
 .flashcard small {
   color: rgba(255, 255, 255, 0.75);
   font-size: 0.75rem;
+}
+
+
+.tab-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 0.9rem;
+}
+
+.tab-button,
+.flashcard-actions button {
+  background: rgba(255, 255, 255, 0.12);
+  color: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 999px;
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+}
+
+.tab-button[aria-selected="true"] {
+  background: rgba(126, 208, 255, 0.2);
+  border-color: rgba(126, 208, 255, 0.7);
+}
+
+.tab-panel {
+  margin-top: 0.2rem;
+}
+
+.tab-intro {
+  margin-bottom: 0.8rem;
+}
+
+.flashcard-stack {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.flashcard-help,
+.flashcard-position {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.flashcard {
+  height: 180px;
+}
+
+.flashcard-face {
+  pointer-events: none;
+}
+
+.flashcard-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
 }
 
 @keyframes rise {
