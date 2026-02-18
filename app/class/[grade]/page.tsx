@@ -7,6 +7,8 @@ type Props = {
   params: { grade: string };
 };
 
+const mentorPool = ["Aarya", "Raman", "Meera", "Kabir"];
+
 export function generateStaticParams() {
   return classContent.map((item) => ({ grade: item.grade.toLowerCase() }));
 }

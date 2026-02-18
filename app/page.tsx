@@ -1,5 +1,11 @@
 import Link from "next/link";
+import { CtaDock } from "@/components/CtaDock";
+import { CompactLessonTile } from "@/components/CompactLessonTile";
+import { ProfilePillHeader } from "@/components/ProfilePillHeader";
+import { ProgressChipRail } from "@/components/ProgressChipRail";
 import { classContent } from "@/lib/content";
+
+const mentorPool = ["Aarya", "Raman", "Meera", "Kabir"];
 
 export default function HomePage() {
   return (
