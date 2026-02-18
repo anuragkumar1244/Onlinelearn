@@ -1,9 +1,10 @@
 import Link from "next/link";
+import type { Route } from "next";
 
 type Action = {
   label: string;
   hint: string;
-  href: string;
+  href: Route;
 };
 
 type Props = {

@@ -1,10 +1,11 @@
 import Link from "next/link";
+import type { Route } from "next";
 
 type Props = {
   title: string;
   subtitle: string;
   badge: string;
-  backHref?: string;
+  backHref?: Route;
   backLabel?: string;
 };
 
