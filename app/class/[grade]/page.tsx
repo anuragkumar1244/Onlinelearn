@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { FlashcardStack } from "@/components/FlashcardStack";
+import { LearningHub } from "@/components/LearningHub";
 import { classContent, classMap } from "@/lib/content";
 
 type Props = {
@@ -19,54 +19,18 @@ export default function ClassPage({ params }: Props) {
   }
 
   return (
-    <main className="app-shell">
+    <main className="app-shell" aria-labelledby="class-page-title">
       <header className="glass detail-head">
-        <Link href="/" className="back-link">
-          ← Back
-        </Link>
-        <h1>Class {content.grade}</h1>
+        <nav aria-label="Breadcrumb">
+          <Link href="/" className="back-link">
+            ← Back to classes
+          </Link>
+        </nav>
+        <h1 id="class-page-title">Class {content.grade}</h1>
         <p>{content.tagline}</p>
       </header>
 
-      <section className="content-grid">
-        <article className="glass panel">
-          <h2>Video Lessons</h2>
-          <ul>
-            {content.videos.map((video) => (
-              <li key={video.title}>
-                <div>
-                  <strong>{video.title}</strong>
-                  <span>{video.topic}</span>
-                </div>
-                <em>{video.duration}</em>
-              </li>
-            ))}
-          </ul>
-        </article>
-
-        <article className="glass panel">
-          <h2>Study Notes</h2>
-          <ul>
-            {content.notes.map((note) => (
-              <li key={note.title}>
-                <div>
-                  <strong>{note.title}</strong>
-                  <span>{note.topic}</span>
-                </div>
-                <em>PDF</em>
-              </li>
-            ))}
-          </ul>
-        </article>
-      </section>
-
-      <section className="glass panel">
-        <div className="section-head">
-          <h2>Flashcards</h2>
-          <p>Tap a card to flip and test your memory quickly.</p>
-        </div>
-        <FlashcardStack cards={content.flashcards} />
-      </section>
+      <LearningHub content={content} />
     </main>
   );
 }

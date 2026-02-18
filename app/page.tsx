@@ -3,23 +3,23 @@ import { classContent } from "@/lib/content";
 
 export default function HomePage() {
   return (
-    <main className="app-shell">
-      <section className="hero glass">
+    <main className="app-shell" aria-labelledby="homepage-title">
+      <header className="hero glass">
         <span className="pill">OnlineLearn</span>
-        <h1>Learn smarter from Class 5th to 12th.</h1>
+        <h1 id="homepage-title">Learn smarter from Class 5th to 12th.</h1>
         <p>
           A premium, iOS-inspired learning experience with videos, notes and
           flashcards designed for students.
         </p>
-      </section>
+      </header>
 
-      <section>
+      <section aria-labelledby="class-list-title">
         <div className="section-head">
-          <h2>Choose your class</h2>
+          <h2 id="class-list-title">Choose your class</h2>
           <p>Pick your grade and continue your daily learning streak.</p>
         </div>
 
-        <div className="class-grid">
+        <nav className="class-grid" aria-label="Class selection">
           {classContent.map((item, index) => (
             <Link
               href={`/class/${item.grade.toLowerCase()}`}
@@ -31,10 +31,12 @@ export default function HomePage() {
                 <strong>Class {item.grade}</strong>
                 <span>{item.tagline}</span>
               </div>
-              <span className="arrow">→</span>
+              <span className="arrow" aria-hidden="true">
+                →
+              </span>
             </Link>
           ))}
-        </div>
+        </nav>
       </section>
     </main>
   );
