@@ -233,3 +233,36 @@ p {
     padding: 1.3rem;
   }
 }
+
+.primary-btn,
+.inline-link {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 0.5rem 0.8rem;
+  color: var(--text);
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.12);
+  width: fit-content;
+  cursor: pointer;
+}
+
+.primary-btn {
+  background: linear-gradient(120deg, rgba(126, 208, 255, 0.35), rgba(104, 118, 255, 0.45));
+}
+
+.action-row,
+.quick-links,
+.stack-gap {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.flashcard-summary {
+  border-radius: 14px;
+  padding: 0.8rem;
+}
+
+input[type="number"],
+input[type="range"] {
+  width: 100%;
+}
