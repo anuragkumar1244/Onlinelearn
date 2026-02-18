@@ -11,6 +11,34 @@ export function generateStaticParams() {
   return classContent.map((item) => ({ grade: item.grade.toLowerCase() }));
 }
 
+function ResourceCard({ resource }: { resource: LearningResource }) {
+  return (
+    <li key={resource.id}>
+      <div>
+        <strong>{resource.title}</strong>
+        <span>
+          {resource.subject} • {resource.chapter}
+        </span>
+        <span>
+          {resource.unit} • {resource.week}
+        </span>
+        <span>
+          Mentor: {resource.mentor.name} ({resource.mentor.role})
+        </span>
+        <span>
+          Due {resource.dueDate} • {resource.completionState}
+        </span>
+        <span>Outcomes: {resource.topicOutcomes.join(" • ")}</span>
+        <span>Tags: {resource.difficultyTags.join(", ")}</span>
+      </div>
+      <div className="resource-meta">
+        <em>{resource.duration}</em>
+        <small>{resource.kind.toUpperCase()}</small>
+      </div>
+    </li>
+  );
+}
+
 export default function ClassPage({ params }: Props) {
   const content = classMap[params.grade];
 
