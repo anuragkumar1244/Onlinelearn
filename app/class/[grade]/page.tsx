@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { FlashcardStack } from "@/components/FlashcardStack";
-import { classContent, classMap, type LearningResource } from "@/lib/content";
+import { LearningHub } from "@/components/LearningHub";
+import { classContent, classMap } from "@/lib/content";
 
 type Props = {
   params: { grade: string };
@@ -47,88 +47,18 @@ export default function ClassPage({ params }: Props) {
   }
 
   return (
-    <main className="app-shell">
+    <main className="app-shell" aria-labelledby="class-page-title">
       <header className="glass detail-head">
-        <Link href="/" className="back-link">
-          ← Back
-        </Link>
-        <h1>Class {content.grade}</h1>
+        <nav aria-label="Breadcrumb">
+          <Link href="/" className="back-link">
+            ← Back to classes
+          </Link>
+        </nav>
+        <h1 id="class-page-title">Class {content.grade}</h1>
         <p>{content.tagline}</p>
       </header>
 
-      <section className="content-grid">
-        <article className="glass panel">
-          <h2>Continue Learning</h2>
-          <ul>
-            {content.groupings.continueLearning.map((resource) => (
-              <ResourceCard key={resource.id} resource={resource} />
-            ))}
-          </ul>
-        </article>
-
-        <article className="glass panel">
-          <h2>Today&apos;s Plan</h2>
-          <ul>
-            {content.groupings.todaysPlan.map((resource) => (
-              <ResourceCard key={resource.id} resource={resource} />
-            ))}
-          </ul>
-        </article>
-      </section>
-
-      <section className="content-grid">
-        <article className="glass panel">
-          <h2>Upcoming Live</h2>
-          <ul>
-            {content.groupings.upcomingLive.map((resource) => (
-              <ResourceCard key={resource.id} resource={resource} />
-            ))}
-          </ul>
-        </article>
-
-        <article className="glass panel">
-          <h2>By Subject</h2>
-          <ul>
-            {Object.entries(content.groupings.bySubject).map(([subject, resources]) => (
-              <li key={subject}>
-                <div>
-                  <strong>{subject}</strong>
-                  <span>{resources.map((resource) => resource.title).join(" • ")}</span>
-                </div>
-                <em>{resources.length} items</em>
-              </li>
-            ))}
-          </ul>
-        </article>
-      </section>
-
-      <section className="content-grid">
-        <article className="glass panel">
-          <h2>Video Lessons</h2>
-          <ul>
-            {content.videos.map((video) => (
-              <ResourceCard key={video.id} resource={video} />
-            ))}
-          </ul>
-        </article>
-
-        <article className="glass panel">
-          <h2>Study Notes</h2>
-          <ul>
-            {content.notes.map((note) => (
-              <ResourceCard key={note.id} resource={note} />
-            ))}
-          </ul>
-        </article>
-      </section>
-
-      <section className="glass panel">
-        <div className="section-head">
-          <h2>Flashcards</h2>
-          <p>Tap a card to flip and test your memory quickly.</p>
-        </div>
-        <FlashcardStack cards={content.flashcards} />
-      </section>
+      <LearningHub content={content} />
     </main>
   );
 }
