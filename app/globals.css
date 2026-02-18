@@ -161,6 +161,18 @@ p {
   font-size: 0.9rem;
 }
 
+
+.resource-meta {
+  display: grid;
+  gap: 0.3rem;
+  justify-items: end;
+}
+
+.resource-meta small {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
 .flashcard-grid {
   margin-top: 0.8rem;
   display: grid;
