@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { FlashcardStack } from "@/components/FlashcardStack";
 import { classContent, classMap } from "@/lib/content";
 
 type Props = {
@@ -21,8 +20,8 @@ export default function ClassPage({ params }: Props) {
   return (
     <main className="app-shell">
       <header className="glass detail-head">
-        <Link href="/" className="back-link">
-          ← Back
+        <Link href="/class" className="back-link">
+          ← Change class
         </Link>
         <h1>Class {content.grade}</h1>
         <p>{content.tagline}</p>
@@ -30,42 +29,78 @@ export default function ClassPage({ params }: Props) {
 
       <section className="content-grid">
         <article className="glass panel">
-          <h2>Video Lessons</h2>
+          <h2>Lessons</h2>
           <ul>
-            {content.videos.map((video) => (
-              <li key={video.title}>
+            {content.videos.map((lesson) => (
+              <li key={lesson.id}>
                 <div>
-                  <strong>{video.title}</strong>
-                  <span>{video.topic}</span>
+                  <strong>{lesson.title}</strong>
+                  <span>{lesson.topic}</span>
                 </div>
-                <em>{video.duration}</em>
+                <Link
+                  href={`/class/${params.grade}/lessons/${lesson.id}`}
+                  className="inline-link"
+                >
+                  Open
+                </Link>
               </li>
             ))}
           </ul>
         </article>
 
         <article className="glass panel">
-          <h2>Study Notes</h2>
+          <h2>Quizzes</h2>
           <ul>
-            {content.notes.map((note) => (
-              <li key={note.title}>
+            {content.quizzes.map((quiz) => (
+              <li key={quiz.id}>
                 <div>
-                  <strong>{note.title}</strong>
-                  <span>{note.topic}</span>
+                  <strong>{quiz.title}</strong>
+                  <span>{quiz.questionCount} questions</span>
                 </div>
-                <em>PDF</em>
+                <Link
+                  href={`/class/${params.grade}/quizzes/${quiz.id}`}
+                  className="inline-link"
+                >
+                  Attempt
+                </Link>
               </li>
             ))}
           </ul>
         </article>
       </section>
 
-      <section className="glass panel">
-        <div className="section-head">
-          <h2>Flashcards</h2>
-          <p>Tap a card to flip and test your memory quickly.</p>
-        </div>
-        <FlashcardStack cards={content.flashcards} />
+      <section className="content-grid">
+        <article className="glass panel">
+          <h2>Notes</h2>
+          <ul>
+            {content.notes.map((note) => (
+              <li key={note.id}>
+                <div>
+                  <strong>{note.title}</strong>
+                  <span>{note.topic}</span>
+                </div>
+                <Link
+                  href={`/class/${params.grade}/notes/${note.id}`}
+                  className="inline-link"
+                >
+                  View
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </article>
+
+        <article className="glass panel">
+          <h2>Flashcards + Progress</h2>
+          <div className="quick-links">
+            <Link href={`/class/${params.grade}/flashcards`} className="primary-btn">
+              Start flashcards
+            </Link>
+            <Link href={`/class/${params.grade}/progress`} className="inline-link">
+              Open progress dashboard
+            </Link>
+          </div>
+        </article>
       </section>
     </main>
   );
